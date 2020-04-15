@@ -1,8 +1,6 @@
 package com.hmlet.photoapp.handler;
 
-import com.hmlet.photoapp.exception.LinkedPhotoExistException;
-import com.hmlet.photoapp.exception.UserAlreadyExistsException;
-import com.hmlet.photoapp.exception.UserDoesNotExistsException;
+import com.hmlet.photoapp.exception.*;
 import com.hmlet.photoapp.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +42,21 @@ public class handler {
 
         ErrorResponse error = new ErrorResponse(ex.getLocalizedMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PhotoDoesNotExistsException.class)
+    public ResponseEntity<ErrorResponse> handlePhotoDoesNotExistsOnPhotoUpdate(PhotoDoesNotExistsException ex,
+                                                                          WebRequest request) {
+
+        ErrorResponse error = new ErrorResponse(ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidPhotoTypeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidPhotoTypeExceptionOnListing(InvalidPhotoTypeException ex,
+                                                                               WebRequest request) {
+
+        ErrorResponse error = new ErrorResponse(ex.getLocalizedMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

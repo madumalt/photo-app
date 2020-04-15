@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -16,6 +17,10 @@ public class PhotoService {
 
     public Photo save(Photo photo) {
         return photoRepository.save(photo);
+    }
+
+    public Photo findById(Long id) throws NoSuchElementException {
+        return photoRepository.findById(id).get();
     }
 
     public List<Photo> findAllByUserName(String userName) {
